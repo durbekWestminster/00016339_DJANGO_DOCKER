@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}My Events{% endblock %}
+
+{% block content %}
+<h2>Events I Organized</h2>
+<ul>
+{% for event in organized %}
+    <li>{{ event.title }} - {{ event.date }} - {{ event.location }}</li>
+{% empty %}
+    <li>None yet.</li>
+{% endfor %}
+</ul>
+
+<h2>Events I'm Attending</h2>
+<ul>
+{% for event in attending %}
+    <li>{{ event.title }} - {{ event.date }} - {{ event.location }}</li>
+{% empty %}
+    <li>None yet.</li>
+{% endfor %}
+</ul>
+{% endblock %}
