@@ -26,12 +26,12 @@ jobs:
       # 3️⃣ Build Docker image
       - name: Build Docker image
         run: |
-          docker build -t ghcr.io/${{ github.repository }}:latest .
+          docker build -t ghcr.io/dscc:latest .
 
       # 4️⃣ Push Docker image to GHCR
       - name: Push Docker image
         run: |
-          docker push ghcr.io/${{ github.repository }}:latest
+          docker push ghcr.io/dscc:latest
 
       # 5️⃣ Optional: SSH deploy to server
       - name: Deploy to server via SSH
@@ -44,5 +44,5 @@ jobs:
           script: |
             cd /durbek
             docker login ghcr.io -u durbekWestminster -p ${{ secrets.GITHUB_TOKEN }}
-            docker pull ghcr.io/${{ github.repository }}:latest
+            docker pull ghcr.io/dscc:latest
             docker compose up -d --remove-orphans
