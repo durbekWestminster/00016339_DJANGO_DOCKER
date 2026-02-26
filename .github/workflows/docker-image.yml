@@ -49,4 +49,4 @@ jobs:
             docker compose up -d --remove-orphans
             docker exec eventplanner-web python manage.py migrate --noinput
 
-            docker exec -it eventplanner-web python manage.py collectstatic --noinput
+            docker exec eventplanner-web python manage.py collectstatic --noinput
