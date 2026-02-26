@@ -22,7 +22,7 @@ services:
 
 
   django-web:
-    image: ghcr.io/durbekwestminster/dscc:latest
+    build: .
     container_name: eventplanner-web
     ports:
       - "8000:8000"
