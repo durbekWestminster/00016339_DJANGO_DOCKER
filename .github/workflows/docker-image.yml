@@ -42,9 +42,7 @@ jobs:
           username: root
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            ls 
             cd durbek
-            ls -l nginx
             docker login ghcr.io -u durbekWestminster -p ${{ secrets.GITHUB_TOKEN }}
             docker pull ghcr.io/durbekwestminster/dscc:latest
             docker compose up -d --remove-orphans
