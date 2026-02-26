@@ -46,3 +46,4 @@ jobs:
             docker login ghcr.io -u durbekWestminster -p ${{ secrets.GITHUB_TOKEN }}
             docker pull ghcr.io/durbekwestminster/dscc:latest
             docker compose up -d --remove-orphans
+            docker exec eventplanner-web python manage.py migrate --noinput
