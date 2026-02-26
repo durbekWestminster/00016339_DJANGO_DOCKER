@@ -42,6 +42,7 @@ jobs:
           username: root
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
+            ls -l nginx
             cd /durbek
             ls -l nginx
             docker login ghcr.io -u durbekWestminster -p ${{ secrets.GITHUB_TOKEN }}

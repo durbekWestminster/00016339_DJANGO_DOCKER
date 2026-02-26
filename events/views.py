@@ -6,6 +6,7 @@ from .forms import RegisterForm, EventForm
 
 
 def register(request):
+
     if request.method == "POST":
         form = RegisterForm(request.POST)
         if form.is_valid():
