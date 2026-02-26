@@ -1,0 +1,48 @@
+name: CI/CD Docker Deployment
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      # 1️⃣ Checkout code
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2️⃣ Log in to GitHub Container Registry
+      - name: Log in to GHCR
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+
+      # 3️⃣ Build Docker image
+      - name: Build Docker image
+        run: |
+          docker build -t ghcr.io/dscc:latest .
+
+      # 4️⃣ Push Docker image to GHCR
+      - name: Push Docker image
+        run: |
+          docker push ghcr.io/dscc:latest
+
+      # 5️⃣ Optional: SSH deploy to server
+      - name: Deploy to server via SSH
+        if: github.ref == 'refs/heads/main'
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: root
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd /durbek
+            docker login ghcr.io -u durbekWestminster -p ${{ secrets.GITHUB_TOKEN }}
+            docker pull ghcr.io/dscc:latest
+            docker compose up -d --remove-orphans
