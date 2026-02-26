@@ -4,31 +4,38 @@
 
 {% block content %}
 <h2>All Events</h2>
-<ul>
-{% for event in events %}
-    <li>
-        <strong>{{ event.title }}</strong> - {{ event.date }} - {{ event.location }} (by {{ event.organizer.username }})
+{% if events %}
+<div class="card-grid">
+    {% for event in events %}
+    <div class="card">
+        <h3 class="card-title">{{ event.title }}</h3>
+        <div class="card-meta">{{ event.date|date:"M d, Y · H:i" }}</div>
+        <div class="card-meta">{{ event.location }}</div>
+        <div class="card-meta">by {{ event.organizer.username }}</div>
         {% if user.is_authenticated %}
+        <div class="card-actions">
             {% if user == event.organizer %}
-                | <a href="{% url 'event_edit' event.pk %}">Edit</a>
-                | <a href="{% url 'event_delete' event.pk %}">Delete</a>
+                <a href="{% url 'event_edit' event.pk %}" class="btn btn-secondary">Edit</a>
+                <a href="{% url 'event_delete' event.pk %}" class="btn btn-danger">Delete</a>
             {% else %}
                 {% if event.pk in user_rsvps %}
-                | <form method="post" action="{% url 'rsvp_cancel' event.pk %}" style="display:inline;">
+                <form method="post" action="{% url 'rsvp_cancel' event.pk %}">
                     {% csrf_token %}
-                    <button type="submit">Cancel RSVP</button>
+                    <button type="submit" class="btn btn-secondary">Cancel RSVP</button>
                 </form>
                 {% else %}
-                | <form method="post" action="{% url 'rsvp' event.pk %}" style="display:inline;">
+                <form method="post" action="{% url 'rsvp' event.pk %}">
                     {% csrf_token %}
-                    <button type="submit">RSVP</button>
+                    <button type="submit" class="btn btn-primary">RSVP</button>
                 </form>
                 {% endif %}
             {% endif %}
+        </div>
         {% endif %}
-    </li>
-{% empty %}
-    <li>No events yet.</li>
-{% endfor %}
-</ul>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<p class="empty-msg">No events yet.</p>
+{% endif %}
 {% endblock %}

@@ -3,21 +3,37 @@
 {% block title %}My Events{% endblock %}
 
 {% block content %}
-<h2>Events I Organized</h2>
-<ul>
-{% for event in organized %}
-    <li>{{ event.title }} - {{ event.date }} - {{ event.location }}</li>
-{% empty %}
-    <li>None yet.</li>
-{% endfor %}
-</ul>
+<div class="section">
+    <h2>Events I Organized</h2>
+    {% if organized %}
+    <div class="card-grid">
+        {% for event in organized %}
+        <div class="card">
+            <h3 class="card-title">{{ event.title }}</h3>
+            <div class="card-meta">{{ event.date|date:"M d, Y · H:i" }}</div>
+            <div class="card-meta">{{ event.location }}</div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p class="empty-msg">None yet.</p>
+    {% endif %}
+</div>
 
-<h2>Events I'm Attending</h2>
-<ul>
-{% for event in attending %}
-    <li>{{ event.title }} - {{ event.date }} - {{ event.location }}</li>
-{% empty %}
-    <li>None yet.</li>
-{% endfor %}
-</ul>
+<div class="section">
+    <h2>Events I'm Attending</h2>
+    {% if attending %}
+    <div class="card-grid">
+        {% for event in attending %}
+        <div class="card">
+            <h3 class="card-title">{{ event.title }}</h3>
+            <div class="card-meta">{{ event.date|date:"M d, Y · H:i" }}</div>
+            <div class="card-meta">{{ event.location }}</div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p class="empty-msg">None yet.</p>
+    {% endif %}
+</div>
 {% endblock %}
