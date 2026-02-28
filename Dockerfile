@@ -40,10 +40,6 @@ RUN mkdir -p staticfiles media && \
 # Switch to non-root user
 USER appuser
 
-# Optional: run collectstatic at build time if you want static files baked in
-# Make sure the required environment variables are set in this stage
-RUN python manage.py collectstatic --noinput
-
 # Expose port
 EXPOSE 8000
 
