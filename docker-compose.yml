@@ -75,8 +75,8 @@ services:
       dockerfile: Dockerfile
     restart: always
     ports:
-      - "80:80"
-      - "443:443"
+      - "8011:80"
+      - "4431:443"
     volumes:
       - static_volume:/app/staticfiles:ro
       - media_volume:/app/media:ro
