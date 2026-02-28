@@ -62,15 +62,3 @@ DATABASE_PASSWORD    - Database password
 DATABASE_HOST        - Database host (db in Docker, 127.0.0.1 locally)
 DATABASE_PORT        - Database port (5432)
 REDIS_URL            - Redis connection string (set in docker-compose.yml)
-
-All loaded from .env file. Not committed to git.
-
-
-SCREENSHOTS
-
-*[screenshot: event list page]*
-*[screenshot: event creation form]*
-*[screenshot: my events page]*
-*[screenshot: admin panel]*
-*[screenshot: docker containers running]*
-*[screenshot: GitHub Actions successful run]*
